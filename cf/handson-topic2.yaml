@@ -49,7 +49,6 @@ Resources:
         ErrorDocument: error.html
         RoutingRules:
           - RoutingRuleCondition:
-              HttpErrorCodeReturnedEquals: '404'
               KeyPrefixEquals: !Sub '${paramRedirectRoute}/'
             RedirectRule:
               ReplaceKeyWith: index.html
