@@ -2,9 +2,12 @@
 
 ###### Yuanchao Hands-on Project
 
+###### Check better this doc and project template on Github  [here](https://github.com/lyc-handson-aws/handson-topic2)
+
 ## **Overview** 
 
 **Project's main points**
+
 :point_right:  AWS S3 Bucket with static website configuration
 
 :point_right:  AWS S3 bucket with block public access disabled: allow S3 bucket to be accessed by Public
@@ -26,6 +29,7 @@ Click here to quickly create a same project with the same AWS resources:  [here]
 ## **AWS Resources**
 
 Project's AWS resourcs:
+
 :point_right: S3 bucket
 
 :point_right: S3 bucket policy
