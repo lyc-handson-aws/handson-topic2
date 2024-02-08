@@ -49,7 +49,7 @@ Resources:
         ErrorDocument: error.html
         RoutingRules:
           - RoutingRuleCondition:
-              KeyPrefixEquals: !Sub '${paramRedirectRoute}/'
+              KeyPrefixEquals: !Sub '${paramRedirectRoute}'
             RedirectRule:
               ReplaceKeyWith: index.html
 
