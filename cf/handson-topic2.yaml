@@ -1,0 +1,73 @@
+AWSTemplateFormatVersion: "2010-09-09"
+## =================== DESCRIPTION =================== ##
+Description: >-
+  AWS S3 Simple Static Website
+  - S3 bucket with public access
+  - Http only
+  - A simple redirection based on 'paramRedirectRoute' defined in s3 bucket's RoutingRules
+
+## ===================== METADATA ===================== ##
+Metadata:
+  'AWS::CloudFormation::Interface':
+    ParameterGroups:
+      - Label:
+          default: A URL route
+        Parameters:
+          - paramRedirectRoute
+      - Label:
+          default: AWS tag parameters
+        Parameters:
+          - paramTagName
+
+## ==================== PARAMETERS ==================== ##
+Parameters:
+  paramRedirectRoute:
+    Description: Specify a route to be redirected to root
+    Type: String
+  paramTagName:
+    Description: Specify a unique name for tag
+    Type: String
+    AllowedPattern: "[\\x20-\\x7E]*" #https://docs.oracle.com/javase/6/docs/api/java/util/regex/Pattern.html
+    ConstraintDescription: Must contain only ASCII characters
+
+
+## =================== RESOURCES =================== ##
+Resources:
+  myS3Bucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: s3bucket-handson-topic2
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      VersioningConfiguration:
+        Status: Enabled
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: error.html
+        RoutingRules:
+          - RoutingRuleCondition:
+              HttpErrorCodeReturnedEquals: '404'
+              KeyPrefixEquals: !Sub '${paramRedirectRoute}/'
+            RedirectRule:
+              ReplaceKeyWith: index.html
+
+  myBucketPolicy:
+    Type: 'AWS::S3::BucketPolicy'
+    Properties:
+      Bucket: !Ref 'myS3Bucket'
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal: '*'
+            Action: 's3:GetObject'
+            Resource: !Sub "${myS3Bucket.Arn}/*"
+
+Outputs:
+  WebsiteURL:
+    Value: !GetAtt
+      - myS3Bucket
+      - WebsiteURL

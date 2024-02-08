@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Topic 2</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  .readme-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+</style>
+</head>
+<body>
+<div class="readme-content" id="readme-content">
+  <h1>Loading README...</h1>
+</div>
+
+<script>
+// Replace 'username' and 'repository' with the GitHub username and repository name
+const username = 'liyuanchao9234';
+const repository = 'lyc-handson-aws/handson-topic2';
+
+// Fetch the README file content using GitHub Markdown API
+fetch(`https://api.github.com/repos/${username}/${repository}/readme`)
+  .then(response => response.json())
+  .then(data => {
+    // Decode the content of the README file from base64
+    const readmeContent = atob(data.content);
+
+    // Fetch HTML content from GitHub Markdown API
+    fetch('https://api.github.com/markdown', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        text: readmeContent,
+        mode: 'markdown'
+      })
+    })
+    .then(response => response.text())
+    .then(htmlContent => {
+      // Render the HTML content in the README section
+      document.getElementById('readme-content').innerHTML = htmlContent;
+    })
+    .catch(error => {
+      console.error('Error fetching HTML content:', error);
+      document.getElementById('readme-content').innerHTML = `<div>Error fetching README HTML content. Please try again later.</div>`;
+    });
+  })
+  .catch(error => {
+    console.error('Error fetching README:', error);
+    document.getElementById('readme-content').innerHTML = `<div>Error fetching README. Please try again later.</div>`;
+  });
+</script>
+</body>
+</html>
