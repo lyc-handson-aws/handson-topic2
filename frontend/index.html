@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #666;
+            margin-top: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+        li {
+            margin-bottom: 20px;
+            border-radius: 10px;
+            background-color: #007bff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            transition: background-color 0.3s ease;
+        }
+        li:hover {
+            background-color: #0056b3;
+        }
+        a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .topic-description {
+            color: #fff;
+            font-size: 14px;
+            max-width: calc(100% - 120px);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Our Website</h1>
+        <p>This is a simple welcome page.</p>
+        <p>Feel free to explore our website.</p>
+        <ul>
+            <li>
+                <a href="topic1/index.html">Topic 1</a>
+                <span class="topic-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+            </li>
+            <li>
+                <a href="topic2/index.html">Topic 2</a>
+                <span class="topic-description">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+            </li>
+            <li>
+                <a href="topic3/index.html">Topic 3</a>
+                <span class="topic-description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span>
+            </li>
+            <!-- Add more topics as needed -->
+        </ul>
+    </div>
+</body>
+</html>
