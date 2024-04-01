@@ -8,7 +8,7 @@ Description: >-
     - AWS Cloudfront
   After stack is launched and finished,User need to :
    1. configure on domain provider to host the domain's zone with Route 53
-   2. upload the files to subdomain S3 Bucket
+   2. upload the files to S3 Bucket of root domain
 
 
 ## ===================== METADATA ===================== ##
@@ -197,7 +197,7 @@ Resources:
         CustomErrorResponses:
           - ErrorCode: 403 
             ResponseCode: 404
-            ResponsePagePath: '/er ror.html'
+            ResponsePagePath: '/error.html'
             ErrorCachingMinTTL: 60
         DefaultCacheBehavior:
           AllowedMethods:

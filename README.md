@@ -34,11 +34,13 @@ Website static contents' delivery: see GitHub workflows of this GitHub repo http
 
 ## **CloudFormation Stack Quick-create Link**
 
-Click here to quickly create a same project with the same AWS resources:  [here](https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?templateURL=https://s3-lyc-handson-cfstacks.s3.eu-west-3.amazonaws.com/topic1.yaml)
+Click here to quickly create a same project with the same AWS resources:  [here](https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?templateURL=https://s3bucket-handson-topic1.s3.eu-west-3.amazonaws.com/CF-template-handson-topic2.yaml)
 
 **See Stack's description for complete actions to reproduce the same project**
 
 > the default stack's region "US East us-east-1"
+
+**See how to make Route 53 the DNS service(only nameserver configuration) for a domain that's in use** [here](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/migrate-dns-domain-in-use.html#migrate-dns-change-name-servers-with-provider)
 
 ## **AWS Resources**
 
