@@ -38,7 +38,7 @@ Click here to quickly create a same project with the same AWS resources:  [here]
 
 **See Stack's description for complete actions to reproduce the same project**
 
-> the default stack's region "Europe (Paris) eu-west-3"
+> the default stack's region "US East us-east-1"
 
 ## **AWS Resources**
 
@@ -49,7 +49,7 @@ Project's AWS resources:
 - AWS::S3::Bucket - create 2 buckets, one with website endpoint configuration for redirection, another with default configuration REST API(regional) endpoint. 
 - AWS::S3::BucketPolicy -  Allow https access from Cloudfront user
 
-:point_right: Amazon CloudFront
+:point_right: Amazon CloudFront : in order to use Cloudfront, all resources of the Stack need to be located in 'us-east-1'
 
 - AWS::CloudFront::Distribution - create a distribution for each domain for https' implementation 
 - AWS::CloudFront::CloudFrontOriginAccessIdentity - identity used for accessing S3 Bucket
