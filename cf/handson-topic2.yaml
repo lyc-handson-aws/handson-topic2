@@ -60,7 +60,7 @@ Resources:
       AccessControl: BucketOwnerFullControl
       WebsiteConfiguration: # make this bucket a website endpoint， in contrast with the bucket below
         RedirectAllRequestsTo: 
-          HostName: !Ref myS3BucketRoot
+          HostName: !Ref paramRootDomain
           Protocol: https
       Tags:
       - Key: !Ref paramUniqueTagName
@@ -184,7 +184,7 @@ Resources:
     Type: 'AWS::CloudFront::Distribution'
     Properties:
       DistributionConfig:
-        Comment: CloudFront distribution points to S3 bucket for root domain
+        Comment: CloudFront distribution points to S3 bucket for sub domain
         Origins:
           - DomainName: !Sub '${myS3BucketSub}.s3-website-${AWS::Region}.amazonaws.com' # as bucket is a website endpoint, use webstie url without http://
             Id: !Sub 'RedirectS3Origin-${paramSubdomain}.${paramRootDomain}'

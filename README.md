@@ -16,7 +16,7 @@
 
 :point_right: Static website has a subdomain URL and a naked domain URL,  subdomain is redirected to naked domain
 
-:point_right: Static Website URL [here](https://www.lyc-handson-aws.com)
+:point_right: Static Website URL [here](https://lyc-handson-aws.com)
 
 ## **Architecture**
 
