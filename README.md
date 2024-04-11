@@ -1,8 +1,7 @@
-# Topic 2 - Https Static Website with a public DNS domain
+# Topic 2 - Https Static Website with a public DNS domain with(S3+Route 53+Certificate Manager+CloudFront)
+##  Yuanchao Hands-on Project
 
-###### Yuanchao Hands-on Project
-
-###### Check this doc and project template on Github  [here](https://github.com/lyc-handson-aws/handson-topic2)
+## This readme is more readable [here](https://github.com/lyc-handson-aws/handson-topic2)
 
 ## **Overview** 
 
