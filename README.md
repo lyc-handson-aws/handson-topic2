@@ -17,6 +17,14 @@
 
 :point_right: Static Website URL [here](https://lyc-handson-aws.com)
 
+## What could be learned in this topic
+
+1. How to use Certificate Manager.
+2. How to use/configure Route53 to host a DNS zone.
+3. How to use/configure CloudFront. CloudFront is generally used for CDN purposes. Here, we utilize it to provide HTTPS support for our S3 website. The S3 website endpoint itself doesn't have HTTPS support (but it can redirect HTTPS requests).
+4. How to configure an S3 Bucket to redirect all requests to another S3 Bucket.
+5. How to configure an S3 Bucket to allow only HTTPS requests and only from a specific service account.
+
 ## **Architecture**
 
 the diagram below illustrates the architecture(principle) of this project:
