@@ -1,0 +1,217 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #a1c4fd, #c2e9fb);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background: linear-gradient(to right, #667eea, #764ba2);
+    color: #fff;
+    padding: 1em 0;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    font-family: 'Georgia', serif;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 1em 0 0;
+    display: flex;
+    justify-content: center;
+}
+
+header nav ul li {
+    margin: 0 1em;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+header nav ul li a:hover {
+    text-decoration: underline;
+}
+
+main {
+    flex: 1;
+    padding: 2em;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.intro {
+    margin-bottom: 2em;
+    padding: 2em;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.intro h2 {
+    margin-bottom: 0.5em;
+    color: #667eea;
+    position: relative;
+    z-index: 1;
+    font-size: 2em;
+    text-shadow: 2px 2px #fff;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 0.5em;
+}
+
+.intro .style-one {
+    color: #333;
+    font-size: 1.2em;
+    background: linear-gradient(to bottom, #e0f7fa, #b2ebf2);
+    padding: 1em;
+    border-left: 5px solid #667eea;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+    font-family: 'Courier New', Courier, monospace;
+    margin-top: 1em;
+    border-radius: 5px;
+}
+
+.intro .style-two {
+    font-weight: bold;
+    color: #fff;
+    font-size: 1.2em;
+    background: linear-gradient(to right, #43cea2, #185a9d);
+    padding: 1em;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 1em;
+    position: relative;
+    z-index: 1;
+}
+
+.intro::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.2);
+    z-index: 0;
+}
+
+.blog-titles {
+    background: #fff;
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.blog-titles h2 {
+    margin-bottom: 1em;
+    color: #667eea;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.card {
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 1em;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card h3 {
+    margin: 0 0 0.5em;
+    color: #667eea;
+}
+
+.card p {
+    margin: 0;
+    color: #666;
+    transition: color 0.3s, background 0.3s, transform 0.3s, box-shadow 0.3s, border 0.3s;
+    position: relative;
+    padding: 0.5em;
+    border-left: 3px solid transparent;
+}
+
+.card:hover p {
+    color: #333;
+    background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+    padding: 1em;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px) scale(1.05);
+    border-left: 3px solid #667eea;
+}
+
+.card p::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(103, 158, 234, 0.2);
+    border-radius: 10px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease-in-out;
+    z-index: -1;
+}
+
+.card:hover p::before {
+    transform: scaleX(1);
+}
+
+.card p::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: #667eea;
+    transition: width 0.4s ease-in-out, left 0.4s ease-in-out;
+    transform: translateX(-50%);
+}
+
+.card:hover p::after {
+    width: 80%;
+    left: 10%;
+}
+
+footer {
+    background: #667eea;
+    color: #fff;
+    text-align: center;
+    padding: 1em 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}

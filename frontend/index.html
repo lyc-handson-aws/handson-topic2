@@ -3,114 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-        }
-        .container {
-            text-align: center;
-        }
-        h1 {
-            color: #333;
-        }
-        p {
-            color: #666;
-            margin-top: 10px;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin-top: 20px;
-        }
-        li {
-            margin-bottom: 20px;
-            border-radius: 10px;
-            background-color: #007bff;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            transition: background-color 0.3s ease;
-        }
-        li:hover {
-            background-color: #0056b3;
-        }
-        a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 16px;
-        }
-        .topic-description {
-            color: #fff;
-            font-size: 14px;
-            max-width: calc(100% - 120px);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-    </style>
+    <title>Yuanchao AWS</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to Yuanchao AWS Hands-on project </h1>
-        <p>The project's learning path sorted by incresed complexity and amount of used resources: 1->2->3->6->4->5->8->7->9<p>
-        <p>The goal of this project aims to:
-            1.lean all most commonly used AWS resources
-            2.use these AWS resoucres the same way taht they are implemented in industry's real production/work environment 
-            3.have an automated process that can reprodure each project just by almost one click.</p>
-        <p>As they are involved in almost every project, AWS IAM and AWS Cloudwatch are not mentioned in this intruduction page.</p>
-        <ul>
-            <li>
-                <a href="topic1/index.html">Topic 1</a>
-                <span class="topic-description">Simple Http Static Website(S3).</span>
-            </li>
-            <li>
-                <a href="topic2/index.html">Topic 2</a>
-                <span class="topic-description">Https Static Website with a public DNS domain with(S3+Route 53+Certificate Manager+CloudFront).</span>
-            </li>
-            <li>
-                <a href="topic3/index.html">Topic 3</a>
-                <span class="topic-description">Shared FS between 2 servers(EC2+EFS).</span>
-            </li>
-            <li>
-                <a href="topic4/index.html">Topic 4</a>
-                <span class="topic-description">Docker image build's CI/CD, push to private DTR(Codebuild+ECR).</span>
-            </li>
-            <li>
-                <a href="topic5/index.html">Topic 5</a>
-                <span class="topic-description">Docker container website(service) using Database(ECS+FARGATE+RDS).</span>
-            </li>
-            <li>
-                <a href="topic6/index.html">Topic 6</a>
-                <span class="topic-description">Simple http website hosted on loadbalancing & autoscaling private backend(ELB+EC2+VPC+Auto-scaling).</span>
-            </li>
-            <li>
-                <a href="topic7/index.html">Topic 7</a>
-                <span class="topic-description">RESTful application(API) using Database(DynamoDB+SES+ApiGateway+StepFunctions+Eventbridge+Lambda).</span>
-            </li>
-            <li>
-                <a href="topic8/index.html">Topic 8</a>
-                <span class="topic-description">Scheduler batch job application(Batch).</span>
-            </li>
-            <li>
-                <a href="topic9/index.html">Topic 9</a>
-                <span class="topic-description">in progress.</span>
-            </li>
-            <li>
-                <a href="topic10/index.html">Topic 10</a>
-                <span class="topic-description">incoming</span>
-            </li>
-            <!-- Add more topics as needed -->
-        </ul>
-    </div>
+    <header>
+        <h1>Welcome to Yuanchao AWS Hands-on Project</h1>
+    </header>
+    
+    <main>
+        <section class="intro">
+            <h2>The goal of this project aims to:</h2>
+            <p class="style-one">1.lean most commonly used AWS resources</p>
+			<p class="style-one">2.use these AWS resoucres the same way taht they are implemented in industry's real production/work environment
+            <p class="style-one">3.have an automated process that can reprodure each project just by almost one click</p>
+			<p class="style-two">The project's suggested learning path is sorted by incresed complexity and amount of used resources: 1->2->3->6->4->5->8->7->9</p>
+        </section>
+        
+        <section class="blog-titles">
+            <h2>Topics</h2>
+            <div class="card-container">
+                <div class="card">
+                    <a href="topic1/index.html">
+                        <h3>Topic 1</h3>
+                        <p>Simple Http Static Website(S3).</p>
+                    </a>
+                </div>
+                <div class="card">
+                    <a href="topic2/index.html">
+                        <h3>Topic 2</h3>
+                        <p>Https Static Website with a public DNS domain with(S3+Route 53+Certificate Manager+CloudFront).</p>
+                    </a>
+                </div>
+                <div class="card">
+                    <a href="topic3/index.html">
+                        <h3>Topic 3</h3>
+                        <p>>Shared FS between 2 servers(EC2+EFS).</p>
+                    </a>
+                </div>
+                <div class="card">
+                    <a href="topic4/index.html">
+                        <h3>Topic 4</h3>
+                        <p>Docker image build's CI/CD, push to private DTR(Codebuild+ECR).</p>
+                    </a>
+                </div>
+                <div class="card">
+                    <a href="topic5/index.html">
+                        <h3>Topic 5</h3>
+                        <p>Docker container website(service) using Database(ECS+FARGATE+RDS).</p>
+                    </a>
+                </div>
+                <div class="card">
+                    <a href="topic6/index.html">
+                        <h3>Topic 6</h3>
+                        <p>Simple http website hosted on loadbalancing & autoscaling private backend(ELB+EC2+VPC+Auto-scaling).</p>
+                    </a>
+                </div>
+                <div class="card">
+                    <a href="topic7/index.html">
+                        <h3>Topic 7</h3>
+                        <p>RESTful application(API) using Database(DynamoDB+SES+ApiGateway+StepFunctions+Eventbridge+Lambda).</p>
+                    </a>
+                </div>
+                <div class="card">
+                    <a href="topic8/index.html">
+                        <h3>Topic 8</h3>
+                        <p>Scheduler batch job application(Batch).</p>
+                    </a>
+                </div>
+                <div class="card">
+                    <a href="topic9/index.html">
+                        <h3>Topic 9</h3>
+                        <p>Java web application's Run+CI/CD in KUBE(EKS+Jenkins+EFS+ALB+CKS+ECR)</p>
+                    </a>
+                </div>
+                <div class="card">
+                    <a href="topic10/index.html">
+                        <h3>Topic 10</h3>
+                        <p>Coming soon.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 lyc-handson-aws.com All rights reserved.</p>
+    </footer>
 </body>
 </html>
