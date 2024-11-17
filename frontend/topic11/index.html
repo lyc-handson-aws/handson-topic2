@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Topic 3</title>
+</head>
+<body>
+<div id="markdown-content">
+  <h1>Loading Project's readme...</h1>
+</div>
+
+<script>
+const username = 'lyc-handson-aws';
+const repository = 'handson-topic11';
+
+fetch(`https://api.github.com/repos/${username}/${repository}/readme`)
+  .then(response => response.json())
+  .then(data => {
+    const markdownContent = atob(data.content);
+    
+    // Replace relative image URLs with absolute URLs
+    const absoluteMarkdownContent = markdownContent.replace(/!\[(.*?)\]\((.*?)\)/g, (match, alt, url) => {
+      if (url.startsWith('http')) {
+        // If the URL is already absolute, return it as is
+        return match;
+      } else {
+        // Otherwise, construct the absolute URL using GitHub's raw content URL
+        return `![${alt}](https://raw.githubusercontent.com/${username}/${repository}/main/${url})`;
+      }
+    });
+    
+    // Convert Markdown to HTML using GitHub's Markdown API
+    fetch('https://api.github.com/markdown', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        text: absoluteMarkdownContent,
+        mode: 'markdown'
+      })
+    })
+    .then(response => response.text())
+    .then(htmlContent => {
+      document.getElementById('markdown-content').innerHTML = htmlContent;
+    })
+    .catch(error => {
+      console.error('Error converting Markdown to HTML:', error);
+      document.getElementById('markdown-content').innerHTML = `<div>Error converting Markdown to HTML. Please try again later.</div>`;
+    });
+  })
+  .catch(error => {
+    console.error('Error fetching Markdown:', error);
+    document.getElementById('markdown-content').innerHTML = `<div>Something is going wrong while fetching Project\'s readme.</div>`;
+  });
+</script>
+</body>
+</html>

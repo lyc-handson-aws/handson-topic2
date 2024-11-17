@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Styled Interactive Page with API Calls</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Montserrat', sans-serif; color: #ffffff; background-color: #1a1a1a; }
+    .container { display: flex; justify-content: space-around; width: 80vw; height: 90vh; margin: 20px auto 0; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); background-color: #222; }
+    .left, .right { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 20px 40px; background: #2c2c2c; }
+
+    .section-title { font-size: 1.5em; font-weight: 700; margin-bottom: 20px; color: #e5e5e5; }
+    .notice-text { font-size: 0.85em; color: #aaa; margin: 5px 0 20px; text-align: center; display: flex; align-items: center; }
+    .notice-text::before { content: "💡"; margin-right: 6px; font-size: 1.2em; color: #34D399; }
+
+    .ellipse-button { width: 180px; height: 50px; border-radius: 25px; background: linear-gradient(135deg, #34D399, #3B82F6); color: #ffffff; font-weight: 700; border: none; cursor: pointer; margin-bottom: 10px; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
+    .ellipse-button:hover { transform: scale(1.05); box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); }
+    .ellipse-button:disabled { background: linear-gradient(135deg, #a3a3a3, #c7c7c7); cursor: not-allowed; transform: none; box-shadow: none; opacity: 0.7; }
+    .ellipse-button:disabled:hover { transform: none; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
+
+    .rectangle-button { width: 450px; height: 60px; border-radius: 10px; background: linear-gradient(135deg, #3B3F51, #5A6074); color: #e0e0e0; font-weight: 700; border: none; cursor: pointer; margin-top: 10px; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
+    .rectangle-button:hover { transform: scale(1.02); box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); }
+
+    .log-text-area { width: 700px; height: 600px; overflow-y: scroll; background: #333; color: #ddd; padding: 20px; border-radius: 8px; font-size: 14px; line-height: 1.6; margin-bottom: 30px; box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2); }
+
+    .message-box { display: none; width: 100%; max-width: 700px; padding: 20px; background: #444; color: #ddd; border-radius: 8px; box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3); font-size: 14px; }
+
+    .log-text-area::-webkit-scrollbar, .message-box::-webkit-scrollbar { width: 8px; }
+    .log-text-area::-webkit-scrollbar-track, .message-box::-webkit-scrollbar-track { background: #2c2c2c; }
+    .log-text-area::-webkit-scrollbar-thumb, .message-box::-webkit-scrollbar-thumb { background: #555; border-radius: 8px; }
+  </style>
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1357.0.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <div class="left">
+    <div class="section-title">Product1 - KMS+Dynamodb+Cloudwatch</div>
+    <button class="ellipse-button" onclick="triggerGitHubAction('Product1')" disabled>Redeploy product(not available)</button>
+    <p class="notice-text">Click this button to delete/recrete the product, wait a little to see the new logs.</p>
+    <div class="log-text-area" id="awsLogsProduct1">Loading AWS Logs...</div>
+    <button class="rectangle-button" onclick="showMessage('Product1')">Check the inital messages with below connection infos</button>
+    <div class="message-box" id="messageProduct1">
+        Use tools(DBeaver) to connect to product1's Dynamodb😎<br>
+        <br>
+        you can find the access id and access key inside this page😮<br>
+        <br>
+        dont worry this access has only very limited read permission😉<br>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="section-title">Product2 - KMS+S3+Cloudwatch</div>
+    <button class="ellipse-button" onclick="triggerGitHubAction('Product2')" disabled>Redeploy product(not available)</button>
+    <p class="notice-text">Click this button to delete/recrete the product, wait a little to see the new logs.</p>
+    <div class="log-text-area" id="awsLogsProduct2">Loading AWS Logs...</div>
+    <button class="rectangle-button" onclick="showMessage('Product2')">Check the inital messages with below connection infos</button>
+    <div class="message-box" id="messageProduct2">
+      Go to product1's S3 Website😎<br>
+      <br>
+      http://service2-topic10-xr-mmrzg-4tcz6.s3-website.eu-west-3.amazonaws.com🥳</div>
+  </div>
+</div>
+
+<script>
+  //const GITHUB_TOKEN = 'YOUR_GITHUB_TOKEN';
+  //const GITHUB_WORKFLOW_URL = 'https://api.github.com/repos/lyc-handson-aws/handson-topic10/actions/workflows/action-argocd.yaml/dispatches';
+//
+  //async function triggerGitHubAction(side) {
+  //  try {
+  //    const response = await fetch(GITHUB_WORKFLOW_URL, {
+  //      method: 'POST',
+  //      headers: {
+  //        'Authorization': `Bearer ${GITHUB_TOKEN}`,
+  //        'Accept': 'application/vnd.github.v3+json',
+  //        'Content-Type': 'application/json'
+  //      },
+  //      body: JSON.stringify({
+  //        ref: 'main' // Replace with the branch you want to trigger
+  //      })
+  //    });
+  //    
+  //    if (response.ok) {
+  //      alert(`GitHub Action triggered on ${side} side successfully`);
+  //    } else {
+  //      const error = await response.json();
+  //      console.error(error);
+  //      alert(`Failed to trigger GitHub Action on ${side}`);
+  //    }
+  //  } catch (error) {
+  //    console.error('Error:', error);
+  //    alert('Error triggering GitHub Action');
+  //  }
+  //}
+
+  async function displayAwsLogs(side,loggroup) {
+    const logArea = document.getElementById(`awsLogs${side}`);
+    logArea.innerText = "Loading AWS Logs...";
+
+    try {
+          const AWS_LOGS_ENDPOINT = `https://logs.eu-west3.amazonaws.com`;
+        
+          AWS.config.update({
+            accessKeyId: "AKIAZQ3DP5VC4ECA2S5G",
+            secretAccessKey: "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",
+            region: "eu-west-3",
+          });
+          
+          const cloudwatchlogs = new AWS.CloudWatchLogs();
+          
+          let allLogs = [];
+          let nextToken = null;
+
+          do {
+              const params = {
+                logGroupName: loggroup,
+                startTime: 0, 
+                limit: 10000,
+                nextToken: nextToken,
+              };
+
+              const response = await cloudwatchlogs.filterLogEvents(params).promise();
+
+              if (response.events) {
+                  allLogs = allLogs.concat(response.events);
+              }
+              nextToken = response.nextToken;
+
+          } while (nextToken);
+
+          if (allLogs.length > 0) {
+              const formattedLogs = allLogs
+                  .map(event => {
+                    const date = new Date(event.timestamp);
+                    const hours = String(date.getHours()).padStart(2, '0');
+                    const minutes = String(date.getMinutes()).padStart(2, '0'); 
+                    const seconds = String(date.getSeconds()).padStart(2, '0');
+                    const formattedTime = `${hours}:${minutes}:${seconds}`;
+
+                    return `${formattedTime}-${event.logStreamName}: ${event.message}`;}).join("\n");
+              logArea.innerText = formattedLogs;
+          } else {
+              logArea.innerText = "No logs found.";
+          }
+        } catch (error) {
+            console.error("Error:", error);
+            logArea.innerText = "Error loading logs.";
+        }
+  }
+
+  function showMessage(side) {
+    const messageBox = document.getElementById(`message${side}`);
+    messageBox.style.display = messageBox.style.display === 'block' ? 'none' : 'block';
+  }
+
+  window.onload = function() {
+    displayAwsLogs('Product1', 'topic10-loggroup');
+    displayAwsLogs('Product2', 'service2-topic10-loggroup');
+    setInterval(() => {
+      displayAwsLogs('Product1', 'topic10-loggroup');
+      displayAwsLogs('Product2', 'service2-topic10-loggroup');
+    }, 30000); // Refresh every 30 seconds
+  }
+</script>
+
+</body>
+</html>
