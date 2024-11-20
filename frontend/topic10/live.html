@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Styled Interactive Page with API Calls</title>
+  <title>Topic10 Live</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -18,7 +18,7 @@
     .ellipse-button { width: 180px; height: 50px; border-radius: 25px; background: linear-gradient(135deg, #34D399, #3B82F6); color: #ffffff; font-weight: 700; border: none; cursor: pointer; margin-bottom: 10px; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
     .ellipse-button:hover { transform: scale(1.05); box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); }
     .ellipse-button:disabled { background: linear-gradient(135deg, #a3a3a3, #c7c7c7); cursor: not-allowed; transform: none; box-shadow: none; opacity: 0.7; }
-    .ellipse-button:disabled:hover { transform: none; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
+    .ellipse-button:disabled:hover { transform: none; box-shadow: 0s 4px 12px rgba(0, 0, 0, 0.2); }
 
     .rectangle-button { width: 450px; height: 60px; border-radius: 10px; background: linear-gradient(135deg, #3B3F51, #5A6074); color: #e0e0e0; font-weight: 700; border: none; cursor: pointer; margin-top: 10px; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
     .rectangle-button:hover { transform: scale(1.02); box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); }
@@ -43,11 +43,11 @@
     <div class="log-text-area" id="awsLogsProduct1">Loading AWS Logs...</div>
     <button class="rectangle-button" onclick="showMessage('Product1')">Check the inital messages with below connection infos</button>
     <div class="message-box" id="messageProduct1">
-        Use tools(DBeaver) to connect to product1's Dynamodb😎<br>
+        Use tools(DBeaver) to connect to Dynamodb of product1😎<br>
         <br>
         you can find the access id and access key inside this page😮<br>
         <br>
-        dont worry this access has only very limited read permission😉, i'm working on another solution to not put AWS acess keys inside the static page<br>
+        dont worry this access has only very limited read permission😉, (i know i know, i'm working on another solution to not put AWS acess keys inside the static page)<br>
     </div>
   </div>
 
@@ -58,7 +58,7 @@
     <div class="log-text-area" id="awsLogsProduct2">Loading AWS Logs...</div>
     <button class="rectangle-button" onclick="showMessage('Product2')">Check the inital messages with below connection infos</button>
     <div class="message-box" id="messageProduct2">
-      Go to product1's S3 Website😎<br>
+      Go to S3 Website of product2😎<br>
       <br>
       http://service2-topic10-xr-pnmg7-pmdwg.s3-website.eu-west-3.amazonaws.com 🥳</div>
   </div>
