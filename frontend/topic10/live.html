@@ -43,11 +43,10 @@
     <div class="log-text-area" id="awsLogsProduct1">Loading AWS Logs...</div>
     <button class="rectangle-button" onclick="showMessage('Product1')">Check the inital messages with below connection infos</button>
     <div class="message-box" id="messageProduct1">
-        Use tools(DBeaver) to connect to Dynamodb of product1😎<br>
-        <br>
-        you can find the access id and access key inside this page😮<br>
-        <br>
-        dont worry this access has only very limited read permission😉, (i know i know, i'm working on another solution to not put AWS acess keys inside the static page)<br>
+        Request the below API URL with Postman to check the contents inside Dynamodb of product1😎
+        (there is CORS control, i'm sure you know how to bypass it😉)<br>
+        <br>https://pes4pbnoy9.execute-api.eu-west-3.amazonaws.com/v1/topic10?type=dynamo&target=app1-topic10-dynamotable-service1<br>
+        <br><strong>Here is the current 5 newest lines inside the db</strong><br>
     </div>
   </div>
 
@@ -60,12 +59,15 @@
     <div class="message-box" id="messageProduct2">
       Go to S3 Website of product2😎<br>
       <br>
-      http://service2-topic10-xr-pnmg7-pmdwg.s3-website.eu-west-3.amazonaws.com 🥳</div>
+      <a href="http://service2-topic10-xr-pnmg7-pmdwg.s3-website.eu-west-3.amazonaws.com" 
+      target="_blank" 
+      style="color: #3B82F6; text-decoration: underline;">
+      http://service2-topic10-xr-pnmg7-pmdwg.s3-website.eu-west-3.amazonaws.com</a>🥳
+    </div>
   </div>
 </div>
 
 <script>
-  //const GITHUB_TOKEN = 'YOUR_GITHUB_TOKEN';
   //const GITHUB_WORKFLOW_URL = 'https://api.github.com/repos/lyc-handson-aws/handson-topic10/actions/workflows/action-argocd.yaml/dispatches';
 //
   //async function triggerGitHubAction(side) {
@@ -94,61 +96,107 @@
   //    alert('Error triggering GitHub Action');
   //  }
   //}
-
-  async function displayAwsLogs(side,loggroup) {
+  async function displayAwsLogs(side, params) {
     const logArea = document.getElementById(`awsLogs${side}`);
-    logArea.innerText = "Loading AWS Logs...";
+    logArea.innerText = `Loading ${side} Logs...`;
 
     try {
-          const AWS_LOGS_ENDPOINT = `https://logs.eu-west3.amazonaws.com`;
-        
-          AWS.config.update({
-            accessKeyId: "AKIAZQ3DP5VC4ECA2S5G",
-            secretAccessKey: "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",
-            region: "eu-west-3",
-          });
-          
-          const cloudwatchlogs = new AWS.CloudWatchLogs();
-          
-          let allLogs = [];
-          let nextToken = null;
+        // Construct the API URL with query parameters
+        const url = new URL("https://pes4pbnoy9.execute-api.eu-west-3.amazonaws.com/v1/topic10");
+        url.search = new URLSearchParams(params).toString(); // Add query params
 
-          do {
-              const params = {
-                logGroupName: loggroup,
-                startTime: 0, 
-                limit: 10000,
-                nextToken: nextToken,
-              };
+        // Perform the GET request
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Access-Control-Allow-Origin': 'https://lyc-handson-aws.com'
+            }
+        });
 
-              const response = await cloudwatchlogs.filterLogEvents(params).promise();
-
-              if (response.events) {
-                  allLogs = allLogs.concat(response.events);
-              }
-              nextToken = response.nextToken;
-
-          } while (nextToken);
-
-          if (allLogs.length > 0) {
-              const formattedLogs = allLogs
-                  .map(event => {
-                    const date = new Date(event.timestamp);
-                    const hours = String(date.getHours()).padStart(2, '0');
-                    const minutes = String(date.getMinutes()).padStart(2, '0'); 
-                    const seconds = String(date.getSeconds()).padStart(2, '0');
-                    const formattedTime = `${hours}:${minutes}:${seconds}`;
-
-                    return `${formattedTime}-${event.logStreamName}: ${event.message}`;}).join("\n");
-              logArea.innerText = formattedLogs;
-          } else {
-              logArea.innerText = "No logs found.";
-          }
-        } catch (error) {
-            console.error("Error:", error);
-            logArea.innerText = "Error loading logs.";
+        // Handle HTTP-level errors
+        if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status} ${response.statusText}`);
         }
+        // Parse the JSON payload
+        const jsonResponse = await response.json();
+
+        // Check the response's statusCode
+        if (jsonResponse.statusCode !== 200) {
+            throw new Error(`API error: ${jsonResponse.statusCode}, ${jsonResponse.body}`);
+        }
+        
+        const items = JSON.parse(jsonResponse.body); 
+
+        // Check if body is an empty list
+        if (Array.isArray(items) && items.length === 0) {
+          logArea.innerHTML = `<strong> No ${side} logs found.</strong>`;
+        } else {
+          const formattedLogs = items.map(item => JSON.stringify(item, null, 2)).join("\n");
+          logArea.innerText = formattedLogs;
+        }
+
+    } catch (error) {
+        console.error(error);
+        logArea.innerHTML = `<span style="color: red; font-weight: bold;">Error loading ${side} logs.</span>`;
+    }
   }
+
+  async function fetchDynamo() { 
+    const messageBox = document.getElementById("messageProduct1");
+    try {
+        // API request with type=dynamo and target=app1-topic10-dynamotable-service1
+        const url = new URL("https://pes4pbnoy9.execute-api.eu-west-3.amazonaws.com/v1/topic10");
+        url.search = new URLSearchParams({ type: "dynamo", target: "app1-topic10-dynamotable-service1" }).toString();
+
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Access-Control-Allow-Origin': 'https://lyc-handson-aws.com'
+            }
+        });
+
+        // Handle HTTP-level errors
+        if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status} ${response.statusText}`);
+        }
+
+        // Parse the JSON payload
+        const jsonResponse = await response.json();
+
+        // Check the response's statusCode
+        if (jsonResponse.statusCode !== 200) {
+            throw new Error(`API error: ${jsonResponse.statusCode}, ${jsonResponse.body}`);
+        }
+
+        const items = JSON.parse(jsonResponse.body); 
+
+        // Check if body is an empty list
+        if (Array.isArray(items) && items.length === 0) {
+            messageBox.innerHTML += `
+                <br>
+                <span style="color: orange; font-weight: bold;">No data available in DynamoDB.</span>
+            `;
+            return; // Exit early since there are no items to process
+        }
+
+        // Get the latest 5 results and reverse them
+        const latestFiveResults = items.slice(-5).reverse();
+
+        // Format results for display
+        const formattedResults = latestFiveResults
+        .map(item => Object.values(item).join("<br>"))
+        .join("<br>");
+
+        messageBox.innerHTML += `<br>${formattedResults}`;
+    } catch (error) {
+        console.error(error);
+        messageBox.innerHTML += `
+            <br>
+            <span style="color: red; font-weight: bold;">Error: Failed to fetch DynamoDB data.</span>
+        `;
+    }
+  }
+
 
   function showMessage(side) {
     const messageBox = document.getElementById(`message${side}`);
@@ -156,13 +204,17 @@
   }
 
   window.onload = function() {
-    displayAwsLogs('Product1', 'topic10-loggroup');
-    displayAwsLogs('Product2', 'service2-topic10-loggroup');
+    // Adjust as needed to pass params such as `type` and `target` from somewhere
+    displayAwsLogs('Product1', { type: 'log', target: 'topic10-loggroup' });
+    displayAwsLogs('Product2', { type: 'log', target: 'service2-topic10-loggroup' });
+
+    fetchDynamo();
+
     setInterval(() => {
-      displayAwsLogs('Product1', 'topic10-loggroup');
-      displayAwsLogs('Product2', 'service2-topic10-loggroup');
-    }, 30000); // Refresh every 30 seconds
-  }
+        displayAwsLogs('Product1', { type: 'log', target: 'topic10-loggroup' });
+        displayAwsLogs('Product2', { type: 'log', target: 'service2-topic10-loggroup' });
+    }, 3000000); // Refresh every 3000 seconds
+};
 </script>
 
 </body>
