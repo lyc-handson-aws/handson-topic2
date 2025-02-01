@@ -74,6 +74,33 @@ main {
     padding-bottom: 0.5em;
 }
 
+/* Updated <h2> style for AWS and Kubernetes sections */
+.aws > h2, .kubernetes > h2 {
+    font-size: 2.2em; /* Maintain a readable size */
+    font-weight: bold;
+    color: #1e3a8a;  /* Deep blue for a modern feel */
+    background: linear-gradient(to right, #6a11cb, #2575fc); /* Gradient effect */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; /* Makes text take gradient color */
+    text-align: center;
+    border-bottom: 3px dashed #1e3a8a; /* Dashed border for differentiation */
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.aws > h2:hover, .kubernetes > h2:hover {
+    opacity: 0.8; /* Simple hover effect for smooth experience */
+}
+
+/* Keep section intros slightly smaller */
+.aws .intro h2, .kubernetes .intro h2 {
+    font-size: 1.8em;
+    color: #333; /* Standard dark gray */
+    border-bottom: 2px solid #667eea; /* Light blue border */
+    text-align: left;
+}
+
 .intro .style-one {
     color: #333;
     font-size: 1.2em;
@@ -200,7 +227,7 @@ main {
     height: 3px;
     background: #667eea;
     transition: width 0.4s ease-in-out, left 0.4s ease-in-out;
-    transform: translateX(-50%);
+    transform: translateX(-10%);
 }
 
 .card:hover p::after {
